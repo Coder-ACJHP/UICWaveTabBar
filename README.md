@@ -22,7 +22,6 @@ Usage of UICWavetabBar is super easy 🎉<br>
 2 - Just create an `UITabbarController` and use your custom tabbar.<br>
 ### For example: 
 ```
-// inside TabbarController class
 private var customTabBar: UICWaveTabBar!
 
 override func viewDidLoad() {
@@ -31,10 +30,10 @@ override func viewDidLoad() {
         tabBar.isTranslucent = false
         tabBar.backgroundColor = .clear
         tabBar.tintColor = .clear
-        viewControllers = DataProvider.shared.provideMockViewControllers() // create your own list
+        viewControllers = DataProvider.shared.provideMockViewControllers() 
         
-        let iconList = DataProvider.shared.provideTabIconList() // create your own list
-        let titleList = DataProvider.shared.provideTabTitlesList() // create your own list
+        let iconList = DataProvider.shared.provideTabIconList() 
+        let titleList = DataProvider.shared.provideTabTitlesList()
         
         customTabBar = UICWaveTabBar(frame: tabBar.frame)
         customTabBar.setupIconsAndTitles(iconList: iconList, titleList: titleList)
@@ -50,10 +49,17 @@ override func viewDidLoad() {
             ])
     }
     
-    // Confirm delegate on your class and use this method
+    // delegate method
     func tabChanged(_ tabBarView: UICWaveTabBar, toIndex: Int) {
-        // this line of code will make your controller change tab
         self.selectedIndex = toIndex
     }
 ```
+##### Note : `DataProvider` class is custom util class that generate array of UIImage etc.
 
+## Requirements
+Xcode 9 or later <br>
+iOS 10.0 or later <br>
+Swift 4 or later <br>
+
+#### Licence : 
+The MIT License (MIT)
