@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		58CFF056225628190095137A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFF055225628190095137A /* AppDelegate.swift */; };
-		58CFF058225628190095137A /* UICWaveTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFF057225628190095137A /* UICWaveTabbarController.swift */; };
+		58CFF058225628190095137A /* ExampleTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFF057225628190095137A /* ExampleTabbarController.swift */; };
 		58CFF05B225628190095137A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58CFF059225628190095137A /* Main.storyboard */; };
 		58CFF05D2256281A0095137A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58CFF05C2256281A0095137A /* Assets.xcassets */; };
 		58CFF0602256281A0095137A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58CFF05E2256281A0095137A /* LaunchScreen.storyboard */; };
+		811590C72256724C00F0B3B8 /* UICWaveTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 811590C62256724C00F0B3B8 /* UICWaveTabBar.xib */; };
+		811590C9225672C400F0B3B8 /* UICWaveTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811590C8225672C400F0B3B8 /* UICWaveTabBar.swift */; };
+		811590CB22567FC300F0B3B8 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811590CA22567FC300F0B3B8 /* DataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		58CFF052225628190095137A /* UICWaveTabbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICWaveTabbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58CFF055225628190095137A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		58CFF057225628190095137A /* UICWaveTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICWaveTabbarController.swift; sourceTree = "<group>"; };
+		58CFF057225628190095137A /* ExampleTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTabbarController.swift; sourceTree = "<group>"; };
 		58CFF05A225628190095137A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58CFF05C2256281A0095137A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58CFF05F2256281A0095137A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		58CFF0612256281A0095137A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		811590C62256724C00F0B3B8 /* UICWaveTabBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UICWaveTabBar.xib; sourceTree = "<group>"; };
+		811590C8225672C400F0B3B8 /* UICWaveTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICWaveTabBar.swift; sourceTree = "<group>"; };
+		811590CA22567FC300F0B3B8 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +60,25 @@
 		58CFF054225628190095137A /* UICWaveTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				811590CC2256841200F0B3B8 /* UICWaveTabBar */,
 				58CFF055225628190095137A /* AppDelegate.swift */,
-				58CFF057225628190095137A /* UICWaveTabbarController.swift */,
+				58CFF057225628190095137A /* ExampleTabbarController.swift */,
+				811590CA22567FC300F0B3B8 /* DataProvider.swift */,
 				58CFF059225628190095137A /* Main.storyboard */,
 				58CFF05E2256281A0095137A /* LaunchScreen.storyboard */,
 				58CFF05C2256281A0095137A /* Assets.xcassets */,
 				58CFF0612256281A0095137A /* Info.plist */,
 			);
 			path = UICWaveTabbar;
+			sourceTree = "<group>";
+		};
+		811590CC2256841200F0B3B8 /* UICWaveTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				811590C8225672C400F0B3B8 /* UICWaveTabBar.swift */,
+				811590C62256724C00F0B3B8 /* UICWaveTabBar.xib */,
+			);
+			path = UICWaveTabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811590C72256724C00F0B3B8 /* UICWaveTabBar.xib in Resources */,
 				58CFF0602256281A0095137A /* LaunchScreen.storyboard in Resources */,
 				58CFF05D2256281A0095137A /* Assets.xcassets in Resources */,
 				58CFF05B225628190095137A /* Main.storyboard in Resources */,
@@ -135,7 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58CFF058225628190095137A /* UICWaveTabbarController.swift in Sources */,
+				58CFF058225628190095137A /* ExampleTabbarController.swift in Sources */,
+				811590C9225672C400F0B3B8 /* UICWaveTabBar.swift in Sources */,
+				811590CB22567FC300F0B3B8 /* DataProvider.swift in Sources */,
 				58CFF056225628190095137A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
