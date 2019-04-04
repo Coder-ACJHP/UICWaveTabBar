@@ -2,8 +2,8 @@
 Awesome tabbarcontroller with water wave effect for IOS written with Swift 4
 
 ## Options: 
-1 - It's implemented from UITabbarController so you can customize it as you want
-2 - Enable, disable animations
+1 - It's implemented from UITabbarController so you can customize it as you want<br>
+2 - Enable, disable animations<br>
 3 - Send notification from any VC to show badge on tab button (UserInfo must be `[String, tuple(tabIndex, yourMessage)]`)
     
     NotificationCenter.default.post(name: showBadgeNotification, object: nil, userInfo: ["index": (1, "New")])
