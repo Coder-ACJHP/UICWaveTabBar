@@ -55,6 +55,7 @@ override func viewDidLoad() {
     }
 ```
 ##### Note : `DataProvider` class is custom util class that generate array of UIImage etc.
+For more information please browse example project
 
 ## Requirements
 Xcode 9 or later <br>
