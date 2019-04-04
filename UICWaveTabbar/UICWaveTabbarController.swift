@@ -1,19 +1,21 @@
 //
-//  ViewController.swift
+//  UICWaveTabbarController.swift
 //  UICWaveTabbar
 //
-//  Created by akademobi5 on 4.04.2019.
-//  Copyright © 2019 Coder ACJHP. All rights reserved.
+//  Created by Coder ACJHP on 4.04.2019.
+//  Copyright © 2019 Onur Işık. All rights reserved.
 //
 
 import UIKit
 
-class UICWaveTabbarController: UITabBarController {
+let showBadgeNotification = Notification.Name.init("showBadge")
 
+class UICWaveTabbarController: UITabBarController {
+    
     private let darkPurpleColor = UIColor(red:0.26, green:0.11, blue:0.32, alpha:1.0)
     private let lightPurpleColor = UIColor(red:0.61, green:0.54, blue:0.65, alpha:1.0)
     
- 
+    
     private let titleList = ["Home", "Categories", "Favorites", "Recents", "Info"]
     private let iconList = [UIImage(named: "home")!, UIImage(named: "list")!,
                             UIImage(named: "heart")!, UIImage(named: "layers")!,
@@ -25,6 +27,7 @@ class UICWaveTabbarController: UITabBarController {
     @IBOutlet weak var bigCenterBtnView: UIView!
     @IBOutlet var tabBtnContainerCollection: [UIView]!
     @IBOutlet var tabBtntitleLabelCollection: [UILabel]!
+    @IBOutlet var tabBtnBadgeLabelCollection: [UILabel]!
     @IBOutlet var tabBtnIconViewCollection: [UIImageView]!
     
     // Wave effect variables
@@ -42,14 +45,24 @@ class UICWaveTabbarController: UITabBarController {
         super.viewDidLoad()
         
         adjustTabBar()
+        
+        startWaveEffect(forView: customTabBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        startWaveEffect(forView: customTabBar)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleBadgeNotification(_:)),
+                                               name: showBadgeNotification, object: nil)
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Select first view controller as default
+        animatePressedButton(buttonTag: 0)
+    }
+    
     fileprivate func adjustTabBar() {
         
         tabBar.isTranslucent = false
@@ -66,7 +79,7 @@ class UICWaveTabbarController: UITabBarController {
             customTabBar.heightAnchor.constraint(equalTo: tabBar.heightAnchor),
             customTabBar.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor),
             customTabBar.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor)
-        ])
+            ])
         
         bigCenterBtnView.backgroundColor = lightPurpleColor
         bigCenterBtnView.layer.cornerRadius = bigCenterBtnView.bounds.width / 2
@@ -82,12 +95,31 @@ class UICWaveTabbarController: UITabBarController {
         self.selectedIndex = sender.tag
     }
     
+    @objc private func handleBadgeNotification(_ notification: Notification) {
+        
+        if let notificationInfo = notification.userInfo as? Dictionary<String, (Int, String)> {
+            if let badgeButtonIndex = notificationInfo["index"] {
+                let badge = tabBtnBadgeLabelCollection[badgeButtonIndex.0]
+                badge.text = badgeButtonIndex.1
+                badge.isHidden = false
+                badge.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    badge.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                }) { (_) in
+                    badge.transform = .identity
+                }
+            }
+        }
+    }
+    
     // Setup button's title and icons
     private func setupTabBarButtons() {
         
         for index in 0 ..< tabBtnIconViewCollection.count {
             let iconView = tabBtnIconViewCollection[index]
-            iconView.image = iconList[index]
+            iconView.image = iconList[index].withRenderingMode(.alwaysTemplate)
+            iconView.tintColor = .black
             
             
             let titleLabel = tabBtntitleLabelCollection[index]
@@ -98,19 +130,35 @@ class UICWaveTabbarController: UITabBarController {
                 titleLabel.isHidden = true
             }
         }
+        
+        tabBtnBadgeLabelCollection.forEach {
+            $0.layer.cornerRadius = $0.bounds.height / 2
+            $0.layer.masksToBounds = true
+            $0.textAlignment = .center
+            $0.minimumScaleFactor = 0.55
+            $0.isHidden = true
+        }
     }
     
     private func animatePressedButton(buttonTag index: Int) {
         
+        tabBtnIconViewCollection.forEach {
+            $0.transform = .identity
+            $0.tintColor = .black
+        }
+        tabBtntitleLabelCollection.forEach { $0.textColor = lightPurpleColor}
+        tabBtnBadgeLabelCollection[index].isHidden = true
+        
         let pressedBtnIconView = tabBtnIconViewCollection[index]
         let pressedBtnTitleLabel = tabBtntitleLabelCollection[index]
-        pressedBtnIconView.alpha = 0
-        pressedBtnTitleLabel.alpha = 0
         
-        UIView.animate(withDuration: 0.3) {
-            pressedBtnIconView.alpha = 1.0
-            pressedBtnTitleLabel.alpha = 1.0
-        }
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            pressedBtnIconView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            self.rotationAnimation(forView: pressedBtnIconView)
+            pressedBtnIconView.tintColor = .white
+            pressedBtnTitleLabel.textColor = .white
+        })
     }
     
     private func startWaveEffect(forView: UIView) {
@@ -183,14 +231,26 @@ class UICWaveTabbarController: UITabBarController {
         maskpath.closeSubpath()
         self.lightWaveLayer.path = maskpath
     }
-
+    
+    private func rotationAnimation(forView: UIView) {
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = 360 * CGFloat(Double.pi/180)
+        let innerAnimationDuration : CGFloat = 0.3
+        rotationAnimation.duration = Double(innerAnimationDuration)
+        rotationAnimation.repeatCount = 0
+        forView.layer.add(rotationAnimation, forKey: "rotateInner")
+    }
+    
     
     private func createAndRetrieveMockViewControllers() -> [UIViewController] {
         
         var mockViewControllerList = [UIViewController]()
+        
         let colorList: [UIColor] = [.yellow, .green, .orange, .red, .brown]
         
-        for index in 0 ... 4 {
+        for index in 0 ... 3 {
             let mockViewController = UIViewController()
             mockViewController.view.backgroundColor = colorList[index]
             
@@ -203,8 +263,13 @@ class UICWaveTabbarController: UITabBarController {
             
             mockViewControllerList.append(mockViewController)
         }
-        
+        mockViewControllerList.append(TestViewController())
         return mockViewControllerList
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        debugPrint("deinitilizing UICWaveTabBarController!")
     }
 }
 
