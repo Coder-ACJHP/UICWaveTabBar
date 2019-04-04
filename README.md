@@ -1,5 +1,11 @@
-# UICWaveTabBarController
+# UICWaveTabBar
 Awesome tabbarcontroller with water wave effect for IOS written with Swift 4
+## Screen shots: 
+
+<div align=center>
+    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhone8.dataset/iPhone8.gif">
+    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhoneX.dataset/iPhoneX.gif">
+</div>
 
 ## Options: 
 1 - It's implemented from UITabbarController so you can customize it as you want<br>
@@ -10,9 +16,4 @@ Awesome tabbarcontroller with water wave effect for IOS written with Swift 4
    
 
 
-## Screen shots: 
 
-<div align=center>
-    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhone8.dataset/iPhone8.gif">
-    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhoneX.dataset/iPhoneX.gif">
-</div>
