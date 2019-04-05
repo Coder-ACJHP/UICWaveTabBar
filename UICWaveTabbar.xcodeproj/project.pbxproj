@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58A72E9E2257A96D00021D45 /* UICSliderTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A72E9D2257A96D00021D45 /* UICSliderTabBar.swift */; };
 		58CFF056225628190095137A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFF055225628190095137A /* AppDelegate.swift */; };
 		58CFF058225628190095137A /* ExampleTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFF057225628190095137A /* ExampleTabbarController.swift */; };
 		58CFF05B225628190095137A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58CFF059225628190095137A /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58A72E9D2257A96D00021D45 /* UICSliderTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICSliderTabBar.swift; sourceTree = "<group>"; };
 		58CFF052225628190095137A /* UICWaveTabbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICWaveTabbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58CFF055225628190095137A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58CFF057225628190095137A /* ExampleTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTabbarController.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58A72E9C2257A96D00021D45 /* UICSlideTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				58A72E9D2257A96D00021D45 /* UICSliderTabBar.swift */,
+			);
+			path = UICSlideTabBar;
+			sourceTree = "<group>";
+		};
 		58CFF049225628190095137A = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		58CFF054225628190095137A /* UICWaveTabbar */ = {
 			isa = PBXGroup;
 			children = (
+				58A72E9C2257A96D00021D45 /* UICSlideTabBar */,
 				811590CC2256841200F0B3B8 /* UICWaveTabBar */,
 				58CFF055225628190095137A /* AppDelegate.swift */,
 				58CFF057225628190095137A /* ExampleTabbarController.swift */,
@@ -156,6 +167,7 @@
 				58CFF058225628190095137A /* ExampleTabbarController.swift in Sources */,
 				811590C9225672C400F0B3B8 /* UICWaveTabBar.swift in Sources */,
 				811590CB22567FC300F0B3B8 /* DataProvider.swift in Sources */,
+				58A72E9E2257A96D00021D45 /* UICSliderTabBar.swift in Sources */,
 				58CFF056225628190095137A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
