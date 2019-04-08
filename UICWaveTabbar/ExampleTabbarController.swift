@@ -55,8 +55,14 @@ class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
         let titleList = DataProvider.shared.provideTabTitlesList()
         
         customTabBar = UICSliderTabBar(frame: tabBar.frame)
+        customTabBar.barBackgroundColor = .orange
+        customTabBar.selectedIconColor = .white
+        customTabBar.selectedTitleColor = .white
+        customTabBar.horizontalBarLineColor = .black
+        customTabBar.glowColor = .black
+        customTabBar.isGlowing = false
+        customTabBar.isScrollEnabledForMoreThanFiveElements = true
         customTabBar.setupIconsAndTitles(iconList: iconList, titleList: titleList)
-        customTabBar.barBackgroundColor = .purple
         customTabBar.delegate = self
         customTabBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(customTabBar)

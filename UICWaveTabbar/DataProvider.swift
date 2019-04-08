@@ -26,8 +26,15 @@ class DataProvider {
             testLabel.textAlignment = .center
             testLabel.font = UIFont.boldSystemFont(ofSize: 30)
             testLabel.text = "View Controller \(index)"
+            testLabel.translatesAutoresizingMaskIntoConstraints = false
             mockViewController.view.addSubview(testLabel)
-            testLabel.center = mockViewController.view.center
+            
+            NSLayoutConstraint.activate([
+                testLabel.widthAnchor.constraint(equalToConstant: 300),
+                testLabel.heightAnchor.constraint(equalToConstant: 100),
+                testLabel.centerXAnchor.constraint(equalTo: mockViewController.view.centerXAnchor),
+                testLabel.centerYAnchor.constraint(equalTo: mockViewController.view.centerYAnchor)
+            ])
             
             mockViewControllerList.append(mockViewController)
         }
@@ -35,12 +42,12 @@ class DataProvider {
     }
     
     func provideTabTitlesList() -> [String] {
-        return ["Home", "Categories", "Favorites", "Recents", "Info"]
+        return ["Home", "Categories", "Favorites", "Recents", "Info", "Extras"]
     }
     
     func provideTabIconList() -> [UIImage] {
         return [UIImage(named: "home")!, UIImage(named: "list")!,
                 UIImage(named: "heart")!, UIImage(named: "layers")!,
-                UIImage(named: "info")!]
+                UIImage(named: "info")!, UIImage(named: "home")!]
     }
 }
