@@ -58,8 +58,7 @@ class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
         customTabBar.barBackgroundColor = .orange
         customTabBar.selectedIconColor = .white
         customTabBar.selectedTitleColor = .white
-        customTabBar.horizontalBarLineColor = .black
-        customTabBar.glowColor = .black
+        customTabBar.horizontalBarLineColor = .white
         customTabBar.isGlowing = false
         customTabBar.isScrollEnabledForMoreThanFiveElements = true
         customTabBar.setupIconsAndTitles(iconList: iconList, titleList: titleList)

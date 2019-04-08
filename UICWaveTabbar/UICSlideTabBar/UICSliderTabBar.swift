@@ -135,9 +135,14 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         // Register cell
         collectionView.register(TabItemCell.self, forCellWithReuseIdentifier: cellId)
         // Add notification observer to handle orientation change
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleOrientationChange),
+                                               name: UIDevice.orientationDidChangeNotification,
+                                               object: nil)
         // Add observer for fresh content size
         collectionView.addObserver(self, forKeyPath: observerKeyPath, options: [.new], context: nil)
+        
+        perform(#selector(selectFirstItem), with: nil, afterDelay: 0.3)
     }
     
     // Collection view content resize completed
@@ -147,11 +152,9 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             if self.horizontalBarLineWidthConstraint!.constant != cell.bounds.width {
                 self.horizontalBarLineWidthConstraint?.constant = cell.bounds.width
                 self.horizontalBarLine.layoutIfNeeded()
-                self.collectionView.selectItem(at: lastSelectedItemIndexPath, animated: false, scrollPosition: .centeredHorizontally)
                 relocateHorizontalBarWith(indexPath: lastSelectedItemIndexPath)
             }
         }
-        
     }
     
     public func setupIconsAndTitles(iconList: [UIImage], titleList: [String]) {
@@ -160,8 +163,6 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         collectionView.reloadData()
         
         setupHorizontalBar()
-        
-        collectionView.selectItem(at: lastSelectedItemIndexPath, animated: false, scrollPosition: .left)
     }
 
     private func setupHorizontalBar() {
@@ -198,6 +199,10 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         fromView.layer.shadowOpacity = 0
     }
     
+    @objc private func selectFirstItem() {
+        collectionView.selectItem(at: lastSelectedItemIndexPath, animated: false, scrollPosition: .left)
+    }
+    
     @objc private func handleOrientationChange() {
         // Reload collection view content to handle content size change
         // When it's finish reloading resize horizontal bar size and position
@@ -212,9 +217,19 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
             let cellFrame = cellAttribs.frame
             let cellFrameInSuperview = collectionView.convert(cellFrame, to: collectionView.superview)
             horizontalBarLineLeadingConstraint?.constant = cellFrameInSuperview.minX
-            UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 2,
+                           options: .curveEaseOut, animations: {
                 self.layoutIfNeeded()
             }, completion: nil)
+        }
+    }
+    
+    public func showBadgeFor(cell index: Int, with text: String) {
+        let indexPath = IndexPath(item: index, section: 0)
+        if let cell = collectionView.cellForItem(at: indexPath) as? TabItemCell {
+            cell.badgeText = text
         }
     }
     
@@ -258,7 +273,8 @@ class UICSliderTabBar: UIView, UICollectionViewDelegate, UICollectionViewDataSou
         }
         // Apply glow animation if enabled
         if let currentCell = collectionView.cellForItem(at: indexPath) as? TabItemCell {
-           if self.isGlowing { self.applyGlow(toView: currentCell.contentView, withColor: self.glowColor) }
+            currentCell.badgeText = nil
+            if self.isGlowing { self.applyGlow(toView: currentCell.contentView, withColor: self.glowColor) }
         }
         lastSelectedItemIndexPath = indexPath
         delegate?.tabChanged(self, toIndex: indexPath.item)
@@ -285,9 +301,38 @@ class TabItemCell: UICollectionViewCell {
     var selectedTitleColor: UIColor = .red
     var unSelectedTitleColor: UIColor = .black
     var itemHighlightedColor: UIColor = .clear
+    var badgeText: String? = nil {
+        didSet {
+            if badgeText == nil {
+                badgeLabel.isHidden = true
+            } else {
+                badgeLabel.alpha = 0
+                badgeLabel.isHidden = false
+                UIView.animate(withDuration: 0.5, delay: 0,
+                               usingSpringWithDamping: 1,
+                               initialSpringVelocity: 2,
+                               options: .curveEaseIn, animations: {
+                    self.badgeLabel.text = self.badgeText
+                    self.badgeLabel.alpha = 1.0
+                }, completion: nil)
+            }
+        }
+    }
+    
+    private var badgeLabel: UIBadgeLabel = {
+        let label = UIBadgeLabel(frame: .zero)
+        label.backgroundColor = .red
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override var isSelected: Bool {
         didSet {
+            badgeText = nil
             iconView.tintColor = isSelected ? selectedIconColor : unSelectedIconColor
             titleLabel.textColor = isSelected ? selectedTitleColor : unSelectedTitleColor
         }
@@ -295,8 +340,6 @@ class TabItemCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            titleLabel.textColor = isHighlighted ? .white : selectedTitleColor
-            iconView.tintColor = isHighlighted ? .white : selectedIconColor
             backgroundColor = isHighlighted ? itemHighlightedColor : .clear
         }
     }
@@ -308,6 +351,8 @@ class TabItemCell: UICollectionViewCell {
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(iconView)
+        
+        addSubview(badgeLabel)
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11)
         titleLabel.textColor = .black
@@ -321,14 +366,30 @@ class TabItemCell: UICollectionViewCell {
             iconView.centerXAnchor.constraint(equalTo: centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10),
             
+            badgeLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 40),
+            badgeLabel.heightAnchor.constraint(equalToConstant: 15),
+            badgeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 3),
+            badgeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: 15),
         ])
+        
+        badgeLabel.layer.cornerRadius = 5
+        badgeLabel.layer.masksToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class UIBadgeLabel: UILabel {
+    
+    override var intrinsicContentSize: CGSize {
+        let originalSize = super.intrinsicContentSize
+        return CGSize(width: originalSize.width + 8, height: originalSize.height)
     }
 }
