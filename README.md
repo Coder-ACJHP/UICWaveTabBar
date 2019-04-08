@@ -5,6 +5,7 @@ Awesome tabbar with water wave effect for IOS written with Swift 4, easy to use 
 <div align=center>
     <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhone8.dataset/iPhone8.gif">
     <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhoneX.dataset/iPhoneX.gif">
+    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBar/blob/master/UICWaveTabbar/Assets.xcassets/TabBarScroll.dataset/TabBarScroll.gif">
 </div>
 
 ## Options: 
@@ -57,6 +58,10 @@ override func viewDidLoad() {
 ##### Note : `DataProvider` class is custom util class that generate array of UIImage etc.
 For more information please browse example project
 
+### Added new style tabbar 🎉
+UICSlideTabBar is scrollable tabbar, you can add infinity items to it.<br>
+It has glow effect, blurred background, image for background, tracking horizontal bar etc. and you can customize as you want.
+<br>
 ## Requirements
 Xcode 9 or later <br>
 iOS 10.0 or later <br>
