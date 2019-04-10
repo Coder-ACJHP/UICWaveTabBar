@@ -57,6 +57,14 @@ override func viewDidLoad() {
 ```
 ##### Note : `DataProvider` class is custom util class that generate array of UIImage etc.
 For more information please browse example project
+##### Note 2: For more than 5 view controllers you must hide navigation bar thats appear automatically (more).
+```
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+```
 
 ### Added new style tabbar 🎉
 UICSlideTabBar is scrollable tabbar, you can add infinity items to it.<br>
