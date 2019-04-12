@@ -18,7 +18,10 @@ class DataProvider {
         
         let colorList: [UIColor] = [.yellow, .green, .orange, .red, .brown]
         
+        let group = DispatchGroup()
         for index in 0 ... 4 {
+            
+            group.enter()
             let mockViewController = UIViewController()
             mockViewController.view.backgroundColor = colorList[index]
             
@@ -37,7 +40,9 @@ class DataProvider {
             ])
             
             mockViewControllerList.append(mockViewController)
+            group.leave()
         }
+        group.wait()
         return mockViewControllerList
     }
     
