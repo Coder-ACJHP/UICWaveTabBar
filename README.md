@@ -6,6 +6,7 @@ Awesome tabbar with water wave effect for IOS written with Swift 4, easy to use 
     <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhone8.dataset/iPhone8.gif">
     <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBarController/blob/master/UICWaveTabbar/Assets.xcassets/iPhoneX.dataset/iPhoneX.gif">
     <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBar/blob/master/UICWaveTabbar/Assets.xcassets/TabBarScroll.dataset/TabBarScroll.gif">
+    <img style="display: inline-block;" src="https://github.com/Coder-ACJHP/UICWaveTabBar/blob/master/UICWaveTabbar/Assets.xcassets/expandableCenter.dataset/expandableCenter.gif">
 </div>
 
 ## Options: 
@@ -65,6 +66,8 @@ For more information please browse example project
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 ```
+### Added new style tabbar 🎉 16/04/19
+UICExpandableCenterTabBar, add 7 view controllers in your tabbar. 2 buttons hidden inside center button 🌟 when you press they will appear
 
 ### Added new style tabbar 🎉
 UICSlideTabBar is scrollable tabbar, you can add infinity items to it.<br>
