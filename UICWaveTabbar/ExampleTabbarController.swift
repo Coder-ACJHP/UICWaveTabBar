@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
+class ExampleTabbarController: UITabBarController, UICExpandableCenterTabBarDelegate {
     
     //    private var customTabBar: UICWaveTabBar!
     //
@@ -41,7 +41,7 @@ class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
     //        self.selectedIndex = toIndex
     //    }
     
-    private var customTabBar: UICSliderTabBar!
+    private var customTabBar: UICExpandableCenterTabBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +54,10 @@ class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
         let iconList = DataProvider.shared.provideTabIconList()
         let titleList = DataProvider.shared.provideTabTitlesList()
         
-        customTabBar = UICSliderTabBar(frame: tabBar.frame)
-        customTabBar.barBackgroundColor = .orange
-        customTabBar.selectedIconColor = .white
-        customTabBar.selectedTitleColor = .white
-        customTabBar.horizontalBarLineColor = .white
-        customTabBar.isGlowing = false
-        customTabBar.isScrollEnabledForMoreThanFiveElements = true
-        customTabBar.setupIconsAndTitles(iconList: iconList, titleList: titleList)
+        customTabBar = UICExpandableCenterTabBar(frame: tabBar.frame)
+        customTabBar.setupButtonIconsAndTitles(icons: iconList, titles: titleList)
         customTabBar.delegate = self
+        customTabBar.viewControllerList = viewControllers!
         customTabBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(customTabBar)
         
@@ -71,11 +66,11 @@ class ExampleTabbarController: UITabBarController, UICSliderTabBarDelegate {
             customTabBar.heightAnchor.constraint(equalTo: tabBar.heightAnchor),
             customTabBar.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor),
             customTabBar.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor)
-            ])
+        ])
     }
     
-    func tabChanged(_ tabBarView: UICSliderTabBar, toIndex: Int) {
-        self.selectedIndex = toIndex
+    func expandableCenterTabBar(_ expandableCenterTabBar: UICExpandableCenterTabBar, didSelectIndex: Int) {
+        self.selectedIndex = didSelectIndex
     }
     
     deinit {

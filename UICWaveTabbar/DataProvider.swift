@@ -16,10 +16,10 @@ class DataProvider {
         
         var mockViewControllerList = [UIViewController]()
         
-        let colorList: [UIColor] = [.yellow, .green, .orange, .red, .brown]
+        let colorList: [UIColor] = [.yellow, .green, .orange, .red, .brown, .purple, .cyan]
         
         let group = DispatchGroup()
-        for index in 0 ... 4 {
+        for index in 0..<colorList.count {
             
             group.enter()
             let mockViewController = UIViewController()
